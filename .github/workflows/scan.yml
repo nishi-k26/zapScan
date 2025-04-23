@@ -1,0 +1,26 @@
+name: Vulnerability Scan Workflow
+
+# Trigger the action on push and pull request events
+on:
+  push:
+    branches:
+      - main  # You can specify which branch you want to trigger the action on (e.g., 'main')
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    permissions:
+      contents: read
+      security-events: write
+      actions: write
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.12.0
+        with:
+          target: 'https://www.vulneweb.com/'
