@@ -26,6 +26,9 @@ jobs:
         id: setup_urls
         run: echo "urls=${{ secrets.TARGET_URLS }}" >> $GITHUB_ENV
 
+      - name: Debug URLs
+        run: echo ${{ env.urls }}
+
       - name: ZAP Scan
         run: |
           for url in $(echo ${{ env.urls }} | tr "," "\n")
