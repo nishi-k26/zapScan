@@ -19,9 +19,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Login to Application
-        run: |
-          curl -c cookies.txt -d "username=admin&password=admin" ${{ secrets.TARGET_URL }}/login.jsp
+      # - name: Login to Application
+      #   run: |
+      #     curl -c cookies.txt -d "username=admin&password=admin" ${{ secrets.TARGET_URL }}/login.jsp
 
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.12.0
