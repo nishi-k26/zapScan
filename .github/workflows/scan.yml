@@ -25,9 +25,11 @@ jobs:
       - name: ZAP Scan for URL 1
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-          target: 'https://www.vulneweb.com//'
+          target: 'https://www.vulneweb.com/'
+          artifactName: 'vulneweb-scan-results'
 
       - name: ZAP Scan for URL 2
         uses: zaproxy/action-full-scan@v0.12.0
         with:
           target: 'https://edesign-630-ppr.se.com/'
+          artifactName: 'edesign-scan-results'
