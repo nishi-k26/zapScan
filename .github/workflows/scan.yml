@@ -19,11 +19,17 @@ jobs:
       actions: write
 
     steps:
-      # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up URLs
+        id: setup_urls
+        run: echo "urls=${{ secrets.TARGET_URLS }}" >> $GITHUB_ENV
+
       - name: ZAP Scan
-        uses: zaproxy/action-full-scan@v0.12.0
-        with:
-          target: '${{ secrets.TARGET_URL }}'
+        run: |
+          for url in $(echo ${{ env.urls }} | tr "," "\n")
+          do
+            echo "Scanning $url"
+            zaproxy/action-full-scan@v0.12.0 --target "$url"
+          done
