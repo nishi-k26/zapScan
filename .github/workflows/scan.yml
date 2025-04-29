@@ -1,10 +1,12 @@
 name: Vulnerability Scan Workflow
 
-# Trigger the action on push and pull request events
+# Trigger the action on push and pull request events and schedule
 on:
   push:
     branches:
       - main  # You can specify which branch you want to trigger the action on (e.g., 'main')
+  schedule:
+    - cron: '0 0 * * *'  # This cron expression triggers the action every night at 12 AM UTC
 
 jobs:
   scan:
