@@ -19,16 +19,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Login to Application
-        run: |
-          curl -c cookies.txt -d "username=admin&password=admin" http://altoro.testfire.net/login.jsp
 
-      - name: ZAP Scan
-        uses: zaproxy/action-full-scan@v0.12.0
-        with:
-          target: 'http://altoro.testfire.net/'
-          contextFile: '.zap/context.xml'
-          authLoginUrl: 'http://altoro.testfire.net/login.jsp'
-          authUsername: 'admin'
-          authPassword: 'admin'
-          authLoginIndicator: 'Logout'  # Adjust this based on your application's login indicator
+      - name: Login to Application
+        run: |
+          curl -c cookies.txt -d "username=admin&password=admin" ${{ secrets.TARGET_URL }}/login.jsp
+
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.12.0
+        with:
+          target: '${{ secrets.TARGET_URL }}/'
+          contextFile: '.zap/context.xml'
+          authLoginUrl: '${{ secrets.TARGET_URL }}/login.jsp'
+          authUsername: 'admin'
+          authPassword: 'admin'
+          authLoginIndicator: 'Logout'
+
