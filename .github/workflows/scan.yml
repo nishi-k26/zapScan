@@ -24,7 +24,7 @@ jobs:
 
       - name: Set up URLs
         id: setup_urls
-        run: echo "urls=${{ secrets.TARGET_URLS }}" >> $GITHUB_ENV
+        run: echo "urls=${{ secrets.TARGET_URL }}" >> $GITHUB_ENV
 
       - name: Debug URLs
         run: echo ${{ env.urls }}
