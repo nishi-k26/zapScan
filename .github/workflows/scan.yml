@@ -1,13 +1,14 @@
 name: Vulnerability Scan Workflow
 
+# Trigger the action on push and pull request events
 on:
   push:
     branches:
-      - main
+      - main  # You can specify which branch you want to trigger the action on (e.g., 'main')
 
 jobs:
   scan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
     permissions:
       contents: read
@@ -16,19 +17,11 @@ jobs:
       actions: write
 
     steps:
+      # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # - name: Login to Application
-      #   run: |
-      #     curl -c cookies.txt -d "username=admin&password=admin" ${{ secrets.TARGET_URL }}/login.jsp
 
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-          target: '${{ secrets.TARGET_URL }}/'
-          contextFile: '.zap/context.xml'
-          authLoginUrl: '${{ secrets.TARGET_URL }}/login.jsp'
-          authUsername: 'admin'
-          authPassword: 'admin'
-          authLoginIndicator: 'Logout'
+          target: '${{ secrets.TARGET_URL }}'
