@@ -1,10 +1,9 @@
 name: Vulnerability Scan Workflow
 
-# Trigger the action on push and pull request events and schedule
 on:
   push:
     branches:
-      - main  # You can specify which branch you want to trigger the action on (e.g., 'main')
+      - main  # Trigger the action on push to the main branch
   schedule:
     - cron: '0 0 * * *'  # This cron expression triggers the action every night at 12 AM UTC
 
@@ -27,11 +26,11 @@ jobs:
         uses: zaproxy/action-full-scan@v0.12.0
         with:
           target: 'https://www.vulneweb.com/'
-          artifactName: 'vulneweb-scan-results-${{ github.run_id }}'  # Unique name based on run ID
+          artifact_name: 'vulneweb-scan-results-${{ github.run_id }}'  # Override the default artifact name
 
       # ZAP Scan for URL 2 with a unique artifact name
       - name: ZAP Scan for URL 2
         uses: zaproxy/action-full-scan@v0.12.0
         with:
           target: 'https://edesign-630-ppr.se.com/'
-          artifactName: 'edesign-scan-results-${{ github.run_id }}'  # Unique name based on run ID
+          artifact_name: 'edesign-scan-results-${{ github.run_id }}'  # Override the default artifact name
