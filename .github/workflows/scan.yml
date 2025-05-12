@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Trigger the action on push to the main branch
   schedule:
-    - cron: '0 0 * * *'  # This cron expression triggers the action every night at 12 AM UTC
+  - cron: '30 18 * * *'  # This cron expression triggers the action every night at 12 AM IST
 
 jobs:
   scan:
@@ -25,12 +25,12 @@ jobs:
       - name: ZAP Scan for URL 1
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-          target: 'https://www.vulneweb.com/'
-          artifact_name: 'vulneweb-scan-results-${{ github.run_id }}'  # Override the default artifact name
+          target: ${{ secrets.TARGET_URL_1 }}
+          artifact_name: 'url-1-${{ github.run_id }}'  # Override the default artifact name
 
       # ZAP Scan for URL 2 with a unique artifact name
       - name: ZAP Scan for URL 2
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-          target: 'https://edesign-630-ppr.se.com/'
-          artifact_name: 'edesign-scan-results-${{ github.run_id }}'  # Override the default artifact name
+          target: ${{ secrets.TARGET_URL_2 }}
+          artifact_name: 'url-2-${{ github.run_id }}'  # Override the default artifact name
