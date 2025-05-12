@@ -8,25 +8,29 @@ on:
   - cron: '30 18 * * *'  # This cron expression triggers the action every night at 12 AM IST
 
 jobs:
-  zap-scan-1:
-    runs-on: ubuntu-latest
+  scan:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    permissions:
+      contents: read
+      security-events: write
+      issues: write
+      actions: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      # ZAP Scan for URL 1
       - name: ZAP Scan for URL 1
         uses: zaproxy/action-full-scan@v0.12.0
         with:
           target: ${{ secrets.TARGET_URL_1 }}
           artifact_name: 'url-1-${{ github.run_id }}'
 
-  zap-scan-2:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      # ZAP Scan for URL 2
       - name: ZAP Scan for URL 2
         uses: zaproxy/action-full-scan@v0.12.0
         with:
           target: ${{ secrets.TARGET_URL_2 }}
           artifact_name: 'url-2-${{ github.run_id }}'
-
