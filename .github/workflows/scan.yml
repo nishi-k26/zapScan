@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main  # Trigger the action on push to the main branch
-  schedule:
-  - cron: '30 18 * * *'  # This cron expression triggers the action every night at 12 AM IST
+  # schedule:
+  # - cron: '30 18 * * *'  # This cron expression triggers the action every night at 12 AM IST
 
 jobs:
   scan:
